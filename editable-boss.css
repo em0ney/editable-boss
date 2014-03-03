@@ -1,0 +1,25 @@
+
+div.editable {
+    width: 760px;
+    height: 100px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-align: left;
+    background-color: #fff;
+}
+
+span.tag {
+    color: #212E53;
+    background-color: #E7E7F2;
+    
+}
+
+span.alias {
+    color: #952637;
+    background-color: #E7E7F2;
+}
+
+span.email {
+    color: #A48459;
+    background-color: #E7E7F2;
+}
