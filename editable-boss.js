@@ -8,16 +8,14 @@ function init() {
 }
 
 function wordSpy() {
-    $(".editable-boss-input").keypress(function (eventData) {
+    $(".editable-boss-input").keyup(function (eventData) {
         copyPlainContent($(this).html(), ".editable-boss");
-        
         var code = event.code || event.which;
-        if (code == 32) {
+        if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
             var cursorPos = getCursorPos();
             repaintMarkUp();
             setCursorPos(cursorPos);
         }
-    });
 }
 
 function repaintMarkUp() {
@@ -44,7 +42,10 @@ function getCursorPos() {
     var focusNode = window.getSelection().focusNode;
     var focusNodeOffset = window.getSelection().extentOffset;
     var parentNode = window.getSelection().focusNode.parentNode;
-    parentNode = isHTMLSpan(parentNode) ? parentNode.parentNode : parentNode;
+    if (isHTMLSpan(parentNode)) {
+        focusNode = parentNode;
+        parentNode = parentNode.parentNode;  
+    } 
     var i = 0;
     var offset = 0;
     var node = parentNode.childNodes[i];
@@ -135,7 +136,7 @@ function initEditable(focusCheck) {
 }
 
 function copyPlainContent(content, selector) {
-    $(selector).val(content.replace(/&nbsp;/g, ' ').replace(/<[\w\/]+[^>]+>/g,' '))
+    $(selector).val(content.replace(/&nbsp;/g, ' ').replace(/<[\w\/]+[^>]+>/g,''))
 }
 
 function FocusCheck() {
