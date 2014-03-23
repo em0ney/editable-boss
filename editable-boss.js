@@ -1,11 +1,8 @@
-$(init);
-
-
-function init() {
+$(function () {
     var firstFocus = new FocusCheck();
     wordSpy();
     initEditable(firstFocus);
-}
+});
 
 function wordSpy() {
     $(".editable-boss-input").keyup(function (eventData) {
@@ -88,13 +85,8 @@ function setCursorPos(pos) {
         currPos = (currPos - lastPos);
     }
     if (isHTMLSpan(node)) {
-        if (i < parentNode.childNodes.length && !isHTMLSpan(parentNode.childNodes[i])) {
-            node = parentNode.childNodes[i];
-        } else {
-            node = document.createTextNode("");
-            parentNode.appendChild(node);
-        }
-        currPos = 0;
+        // Need to position cursor within span element text
+        node = node.childNodes[0];
     }
     var range = document.createRange();
     range.setStart(node, currPos);
@@ -105,11 +97,11 @@ function setCursorPos(pos) {
 }
 
 function getLastWord(field) {
-        var list = field.split(/\s+/);
-        do {
-            var word = list.pop();
-        } while (word == "");
-        return word;
+    var list = field.split(/\s+/);
+    do {
+        var word = list.pop();
+    } while (word == "");
+    return word;
 }
 
 function replaceLastWordWith(selector, replacement) {
